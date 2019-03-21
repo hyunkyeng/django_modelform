@@ -1,0 +1,21 @@
+{% extends 'boards/base.html' %}
+{% block body %}
+
+{% if request.resolver_match.url_name == 'create' %}
+    <h1>NEW board</h1>
+{% else %}
+    <h1>EDIT board</h1>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!--as_p/as_ul/as_table-->
+    <input type="submit" value="Submit"/>
+</form>
+
+{% if request.resolver_match.url_name == 'create' %}
+    <a href="{% url 'boards:index' %}">Back</a>
+{% else %}
+    <a href="{% url 'boards:detail' board.pk %}">[수정]</a>
+{% endif %}
+{% endblock %}
