@@ -9,6 +9,16 @@
 </head>
 <body>
     <div class="container">
+    {% if user.is_authenticated %}
+        <h1>
+            안녕, {{ user.username }}
+            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+        </h1>
+    {% else %}
+        <a href="{% url 'accounts:login' %}">로그인</a>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+    {% endif %}
+        <hr>
         {% block body %}
         {% endblock %}
     </div>
