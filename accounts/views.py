@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms import UserCustomChangeForm
+from .forms import UserCustomChangeForm, UserCustomCreationForm
 
 # Create your views here.
 
@@ -13,13 +13,13 @@ def signup(request):
         return redirect('boards:index')
         
     if request.method == 'POST':                    # create 
-        form = UserCreationForm(request.POST)
+        form = UserCustomCreationForm(request.POST)
         if form.is_valid():
             user = form.save()                      # 1. 
             auth_login(request, user)               # 2. 회원가입하자마자 로그인될 수 있도록
             return redirect('boards:index')
     else:
-        form = UserCreationForm()
+        form = UserCustomCreationForm()
     context = {'form': form}
     return render(request, 'accounts/auth_form.html', context)
     
