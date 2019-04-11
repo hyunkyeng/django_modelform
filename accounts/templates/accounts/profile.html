@@ -1,0 +1,34 @@
+{% extends 'accounts/base.html' %}
+{% load gravatar %}
+
+
+{% block body %}
+
+<div class="row mr-auto">
+    <h3><img src="https://s.gravatar.com/avatar/{{ people.email | makemd5 }}?s=200" alt="profile img" class="rounded-circle mx-5 my-3"></img>
+    {{ people }}'s Profile
+
+</div>
+
+<hr>
+<div class="row">
+
+   {% for board in people.board_set.all %}
+
+       <div class="my-1 col-sm-4 card" style="width: 18rem;">
+         <a href="{% url 'boards:detail' board.pk %}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVXyEDhpyYuBXW097ZnbBX8nAigV73PeDgkv4Dko2KkUaNHm8DMw" class="card-img-top" alt="..."></a>
+         <div class="card-body">
+           <p class="card-text"><b><a href="{% url 'boards:detail' board.pk %}">{{ board.title }}</a></b></p>
+           <p class="card-text">{{ board.content }}</p>
+           <p>comments: {{ board.comment_set.count }}</p>
+         </div>
+       </div>
+
+   {% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}

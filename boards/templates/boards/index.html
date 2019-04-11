@@ -8,7 +8,7 @@
 {% endif %}
 <hr>
 {% for board in boards %}
-    <p><b>작성자 : {{ board.user }}</b></p>
+    <p><b>작성자 : <a href="{% url 'accounts:profile' board.user_id %}">{{ board.user }}</a></b></p>
     <p>{{ board.pk }}</p>
     <p>{{ board.title }}</p>
     <a href="{% url 'boards:detail' board.pk %}">글 보러가기</a>
